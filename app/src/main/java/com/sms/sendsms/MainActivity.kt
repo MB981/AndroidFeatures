@@ -1,11 +1,14 @@
 package com.sms.sendsms
 
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.SmsManager
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -21,11 +24,51 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+
+        mBinding.etMessage.visibility = View.VISIBLE
+        mBinding.etPhoneNumber.visibility = View.VISIBLE
+        mBinding.btnSend.visibility = View.VISIBLE
+
+        mBinding.etAddress.visibility = View.GONE
+        mBinding.etSubject.visibility = View.GONE
+        mBinding.etEmailBody.visibility = View.GONE
+
         onClick()
     }
 
 
     private fun onClick() {
+        mBinding.btnSMSScreen.setOnClickListener {
+            mBinding.etMessage.visibility = View.VISIBLE
+            mBinding.etPhoneNumber.visibility = View.VISIBLE
+            mBinding.btnSend.visibility = View.VISIBLE
+
+            mBinding.etAddress.visibility = View.GONE
+            mBinding.etSubject.visibility = View.GONE
+            mBinding.etEmailBody.visibility = View.GONE
+
+        }
+        mBinding.btnEmailScreen.setOnClickListener {
+
+            mBinding.etAddress.visibility = View.VISIBLE
+            mBinding.etSubject.visibility = View.VISIBLE
+            mBinding.etEmailBody.visibility = View.VISIBLE
+            mBinding.btnEmail.visibility = View.VISIBLE
+
+
+            mBinding.etMessage.visibility = View.GONE
+            mBinding.etPhoneNumber.visibility = View.GONE
+            mBinding.btnSend.visibility = View.GONE
+
+
+        }
+
+
+
+
+
+
+
         mBinding.btnSend.setOnClickListener {
             message = mBinding.etMessage.text.toString()
             number = mBinding.etPhoneNumber.text.toString()
@@ -43,6 +86,29 @@ class MainActivity : AppCompatActivity() {
                     REQUEST_SEND_SMS_PERMISSION
                 )
             }
+        }
+
+
+        mBinding.btnEmail.setOnClickListener {
+            val userAddress = mBinding.etAddress.text.toString()
+            val userSubject = mBinding.etSubject.text.toString()
+            val userEmail = mBinding.etEmailBody.text.toString()
+            sendEmail(userAddress, userSubject, userEmail)
+        }
+
+    }
+
+    private fun sendEmail(userAddress: String, userSubject: String, userEmail: String) {
+        val emailAddresses = arrayOf(userAddress)
+        val emailIntent = Intent(Intent.ACTION_SENDTO)
+// The only email app open
+        emailIntent.data = Uri.parse("mailto:")
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, emailAddresses)
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, userSubject)
+        emailIntent.putExtra(Intent.EXTRA_TEXT, userEmail)
+
+        if (emailIntent.resolveActivity(packageManager) != null) {
+            startActivity(Intent.createChooser(emailIntent, "Choose an app"))
         }
     }
 
@@ -82,7 +148,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
 
 }
