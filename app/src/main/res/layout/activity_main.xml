@@ -11,21 +11,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-<!--Send Message-->
+            <!--Send Message-->
             <EditText
                 android:id="@+id/etMessage"
                 android:layout_width="300dp"
                 android:layout_height="100dp"
-                android:ems="10"
-                 android:hint="Write your message"
                 android:layout_marginTop="100dp"
-                 android:inputType="textMultiLine"
+                android:ems="10"
+                android:hint="Write your message"
+                android:inputType="textMultiLine"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -36,11 +36,11 @@
                 android:id="@+id/etPhoneNumber"
                 android:layout_width="300dp"
                 android:layout_height="100dp"
-                android:ems="10"
-                 android:hint="Enter Phone Number"
                 android:layout_marginTop="50dp"
+                android:ems="10"
+                android:hint="Enter Phone Number"
                 android:inputType="phone"
-                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etMessage" />
 
@@ -50,21 +50,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:text="Send Message"
-                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintVertical_bias="0.489"
                 app:layout_constraintTop_toBottomOf="@+id/etPhoneNumber"
-                app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-                />
+                app:layout_constraintVertical_bias="0.489" />
             <!--Email-->
             <EditText
                 android:id="@+id/etAddress"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
                 android:ems="10"
                 android:hint="Enter Address"
-                android:layout_marginTop="100dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
@@ -75,8 +74,8 @@
                 android:id="@+id/etSubject"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:layout_marginTop="10dp"
+                android:ems="10"
                 android:hint="Enter Subject"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -88,12 +87,12 @@
                 android:id="@+id/etEmailBody"
                 android:layout_width="300dp"
                 android:layout_height="70dp"
-                android:ems="10"
                 android:layout_marginTop="10dp"
+                android:ems="10"
                 android:gravity="top"
-                android:visibility="gone"
-                android:inputType="textMultiLine"
                 android:hint="Enter your email"
+                android:inputType="textMultiLine"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
@@ -112,20 +111,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etSubject" />
 
-<!--Phone Call-->
+            <!--Phone Call-->
             <EditText
                 android:id="@+id/etCallNumber"
                 android:layout_width="300dp"
                 android:layout_height="70dp"
+                android:layout_marginTop="100dp"
                 android:ems="10"
                 android:hint="Enter Phone Number"
-                android:layout_marginTop="100dp"
                 android:inputType="phone"
                 android:visibility="gone"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btnCall"
@@ -140,59 +138,58 @@
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etSubject" />
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+
+            <GridLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="50dp"
-                android:layout_marginTop="100dp"
-
+                android:columnCount="2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent">
 
-                <Button
-                    android:id="@+id/btnEmailScreen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email Screen"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/btnCallScreen"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/btnCallScreen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Call Screen"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-android:layout_marginHorizontal="5dp"
-                    app:layout_constraintEnd_toStartOf="@+id/btnEmailScreen"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/btnSMSScreen"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/btnSMSScreen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+
+                    android:text="SMS Screen" />
+
+                <Button
+                    android:id="@+id/btnCallScreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginHorizontal="5dp"
+
+                    android:text="Call Screen" />
 
 
+                <Button
+                    android:id="@+id/btnEmailScreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="Email Screen" />
 
-                    android:text="SMS Screen"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btnCallScreen"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <Button
+                    android:id="@+id/btnSpeech"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="Speech to text screen" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </GridLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
