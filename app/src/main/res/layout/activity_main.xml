@@ -23,7 +23,7 @@
                 android:layout_width="300dp"
                 android:layout_height="100dp"
                 android:ems="10"
-                android:hint="Write your message"
+                 android:hint="Write your message"
                 android:layout_marginTop="100dp"
                  android:inputType="textMultiLine"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
                 android:layout_width="300dp"
                 android:layout_height="100dp"
                 android:ems="10"
-                android:hint="Enter Phone Number"
+                 android:hint="Enter Phone Number"
                 android:layout_marginTop="50dp"
                 android:inputType="phone"
                  app:layout_constraintEnd_toEndOf="parent"
@@ -106,6 +106,35 @@
                 android:layout_marginTop="50dp"
                 android:text="Send Email"
                 android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etSubject" />
+
+<!--Phone Call-->
+            <EditText
+                android:id="@+id/etCallNumber"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:ems="10"
+                android:hint="Enter Phone Number"
+                android:layout_marginTop="100dp"
+                android:inputType="phone"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <Button
+                android:id="@+id/btnCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="Call"
+                android:visibility="gone"
+
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"

@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private var message: String = ""
     private var number: String = ""
     private val REQUEST_SEND_SMS_PERMISSION = 123
+    private val REQUEST_CALL_PHONE_PERMISSION = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity() {
             mBinding.etAddress.visibility = View.GONE
             mBinding.etSubject.visibility = View.GONE
             mBinding.etEmailBody.visibility = View.GONE
+            mBinding.etCallNumber.visibility = View.GONE
+            mBinding.btnCall.visibility = View.GONE
 
         }
         mBinding.btnEmailScreen.setOnClickListener {
@@ -54,6 +57,25 @@ class MainActivity : AppCompatActivity() {
             mBinding.etSubject.visibility = View.VISIBLE
             mBinding.etEmailBody.visibility = View.VISIBLE
             mBinding.btnEmail.visibility = View.VISIBLE
+
+
+            mBinding.etMessage.visibility = View.GONE
+            mBinding.etPhoneNumber.visibility = View.GONE
+            mBinding.btnSend.visibility = View.GONE
+            mBinding.etCallNumber.visibility = View.GONE
+            mBinding.btnCall.visibility = View.GONE
+
+        }
+
+        mBinding.btnCallScreen.setOnClickListener {
+            mBinding.etCallNumber.visibility = View.VISIBLE
+            mBinding.btnCall.visibility = View.VISIBLE
+
+
+            mBinding.etAddress.visibility = View.GONE
+            mBinding.etSubject.visibility = View.GONE
+            mBinding.etEmailBody.visibility = View.GONE
+            mBinding.btnEmail.visibility = View.GONE
 
 
             mBinding.etMessage.visibility = View.GONE
@@ -96,6 +118,31 @@ class MainActivity : AppCompatActivity() {
             sendEmail(userAddress, userSubject, userEmail)
         }
 
+
+        mBinding.btnCall.setOnClickListener {
+            val phoneNumber = mBinding.etCallNumber.text.toString()
+            // Check if the app has the CALL_PHONE permission
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                // Permission is granted, start the call
+                startCall(phoneNumber)
+            } else {
+                // Permission is not granted, request it
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.CALL_PHONE),
+                    REQUEST_CALL_PHONE_PERMISSION
+                )
+            }
+        }
+    }
+
+
+    private fun startCall(phoneNumber: String) {
+        val intent = Intent(Intent.ACTION_CALL)
+        intent.data = Uri.parse("tel:$phoneNumber")
+        startActivity(intent)
     }
 
     private fun sendEmail(userAddress: String, userSubject: String, userEmail: String) {
@@ -133,18 +180,35 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_SEND_SMS_PERMISSION) {
-            // Check if the permission is granted.
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, send the SMS
-                sendSMS(message, number)
-            } else {
-                // Permission denied, inform the user.
-                Toast.makeText(
-                    applicationContext,
-                    "Permission denied. Cannot send SMS.",
-                    Toast.LENGTH_SHORT
-                ).show()
+        when (requestCode) {
+            REQUEST_SEND_SMS_PERMISSION -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted for SMS, send the SMS
+                    val phoneNumber = mBinding.etPhoneNumber.text.toString()
+                    val message = mBinding.etMessage.text.toString()
+                    sendSMS(message, phoneNumber)
+                } else {
+                    // Permission denied for SMS, inform the user.
+                    Toast.makeText(
+                        applicationContext,
+                        "Permission denied for SMS. Cannot send SMS.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            REQUEST_CALL_PHONE_PERMISSION -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted for call, start the call
+                    val phoneNumber = mBinding.etPhoneNumber.text.toString()
+                    startCall(phoneNumber)
+                } else {
+                    // Permission denied for call, inform the user.
+                    Toast.makeText(
+                        applicationContext,
+                        "Permission denied for call. Cannot make a call.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
