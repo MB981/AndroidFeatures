@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             mBinding.etEmailBody.visibility = View.GONE
             mBinding.etCallNumber.visibility = View.GONE
             mBinding.btnCall.visibility = View.GONE
+            mBinding.btnEmail.visibility = View.GONE
 
         }
         mBinding.btnEmailScreen.setOnClickListener {
